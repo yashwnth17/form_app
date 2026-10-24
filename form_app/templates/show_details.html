@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Product Details</title>
+
+    
+</head>
+
+<body>
+    <div class="container">
+        <h1>Product Details</h1>
+
+        <a href="{% url 'create_product' %}" class="add-button">
+            Add New Product
+        </a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available</th>
+                    <th>Created Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description|default:"-" }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>{{ product.is_available|yesno:"Yes,No" }}</td>
+                    <td>{{ product.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="empty">
+                        No products found. Please add a product.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
